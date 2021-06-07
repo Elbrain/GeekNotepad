@@ -53,6 +53,11 @@ public class ListOfNotes extends Fragment {
                 TextView tv = new TextView(getContext());
                 tv.setText(allNotes.get(i).getTitle());
                 tv.setTextSize(30);
+                int finalI = i;
+                tv.setOnClickListener(v -> {
+                    ShowNoteController controller = (ShowNoteController) getActivity();
+                    controller.showNote(allNotes.get(finalI));
+                });
                 layoutView.addView(tv);
             }
         }

@@ -14,6 +14,8 @@ import android.widget.EditText;
 
 import com.google.android.material.button.MaterialButton;
 
+import java.util.Objects;
+
 public class AddNote extends Fragment {
 
     private NoteEntity newNote;
@@ -38,12 +40,14 @@ public class AddNote extends Fragment {
         noteText = view.findViewById(R.id.editTextTextNoteBody);
         noteDate = view.findViewById(R.id.editTextNoteDate);
         saveNote = view.findViewById(R.id.buttonSaveNote);
+
         saveNote.setOnClickListener(v -> {
             NoteController controller = (NoteController) getActivity();
             newNote = new NoteEntity(noteTitle.getText().toString(), noteText.getText().toString(), noteDate.getText().toString());
             controller.addNote(newNote);
-
+            getActivity().onBackPressed();
         });
+
     }
 
 }
