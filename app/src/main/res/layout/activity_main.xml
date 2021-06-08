@@ -12,13 +12,13 @@
         android:id="@+id/button_new_note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add note" />
+        android:text="@string/add_note" />
 
     <Button
         android:id="@+id/button_show_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Show list" />
+        android:text="@string/show_list" />
 
     <FrameLayout
         android:id="@+id/fragment_container"

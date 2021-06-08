@@ -16,7 +16,6 @@ import java.util.ArrayList;
 public class ListOfNotes extends Fragment {
 
     private static final String ARG_NOTES = "ARG_NOTES";
-    private static final String TAG = "@@@ ListOfNotes";
     private ArrayList<NoteEntity> allNotes;
 
     public ListOfNotes() {
@@ -27,7 +26,6 @@ public class ListOfNotes extends Fragment {
         Bundle args = new Bundle();
         args.putParcelableArrayList(ARG_NOTES, notesList);
         fragment.setArguments(args);
-        fragment.getArguments();
         return fragment;
     }
 
@@ -49,11 +47,13 @@ public class ListOfNotes extends Fragment {
         if (getArguments() != null) {
             allNotes = getArguments().getParcelableArrayList(ARG_NOTES);
             LinearLayout layoutView = (LinearLayout) view;
+
             for (int i = 0; i < allNotes.size(); i++) {
                 TextView tv = new TextView(getContext());
                 tv.setText(allNotes.get(i).getTitle());
                 tv.setTextSize(30);
                 int finalI = i;
+
                 tv.setOnClickListener(v -> {
                     ShowNoteController controller = (ShowNoteController) getActivity();
                     controller.showNote(allNotes.get(finalI));

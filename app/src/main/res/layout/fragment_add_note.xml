@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/teal_200"
+    android:background="#FFFFFF"
     tools:context=".AddNote">
 
     <LinearLayout
@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:hint="Note title" />
+            android:hint="@string/note_title" />
 
         <EditText
             android:id="@+id/editTextTextNoteBody"
@@ -24,14 +24,14 @@
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
             android:gravity="start"
-            android:minLines="6"
-            android:hint="Note body"/>
+            android:minLines="3"
+            android:hint="@string/note_text"/>
 
         <EditText
             android:id="@+id/editTextNoteDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Date"
+            android:hint="@string/date"
             android:inputType="date" />
 
         <com.google.android.material.button.MaterialButton
@@ -39,6 +39,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Save note" />
+            android:text="@string/save_note" />
     </LinearLayout>
 </FrameLayout>

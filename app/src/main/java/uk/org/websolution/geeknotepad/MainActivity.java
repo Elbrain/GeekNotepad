@@ -3,17 +3,17 @@ package uk.org.websolution.geeknotepad;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.View;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NoteController, ShowNoteController {
 
     protected ArrayList<NoteEntity> notesList = new ArrayList<>();
     private static final String NOTE_KEY = "noteKey";
+
 
 
     @Override
@@ -40,11 +40,22 @@ public class MainActivity extends AppCompatActivity implements NoteController, S
             @Override
             public void onClick(View v) {
                 AddNote addNote = new AddNote();
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, addNote)
-                        .addToBackStack(null)
-                        .commit();
+                boolean isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+                if (isLandscape){
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.fragment_container_details, addNote)
+                            .addToBackStack(null)
+                            .commit();
+                }
+                else {
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.fragment_container, addNote)
+                            .addToBackStack(null)
+                            .commit();
+                }
+
             }
         });
 
@@ -84,11 +95,21 @@ public class MainActivity extends AppCompatActivity implements NoteController, S
 
     @Override
     public void showNote(NoteEntity note) {
+        boolean isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
         NoteInfo noteInfo = NoteInfo.newInstance(note);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, noteInfo)
-                .addToBackStack(null)
-                .commit();
+        if (isLandscape){
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container_details, noteInfo)
+                    .addToBackStack(null)
+                    .commit();
+        }
+        else{
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, noteInfo)
+                    .addToBackStack(null)
+                    .commit();
+        }
     }
 }
