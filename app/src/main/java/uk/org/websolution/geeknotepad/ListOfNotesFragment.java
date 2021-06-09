@@ -13,16 +13,16 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ListOfNotes extends Fragment {
+public class ListOfNotesFragment extends Fragment {
 
     private static final String ARG_NOTES = "ARG_NOTES";
     private ArrayList<NoteEntity> allNotes;
 
-    public ListOfNotes() {
+    public ListOfNotesFragment() {
     }
 
-    public static ListOfNotes newInstance(ArrayList<NoteEntity> notesList) {
-        ListOfNotes fragment = new ListOfNotes();
+    public static ListOfNotesFragment newInstance(ArrayList<NoteEntity> notesList) {
+        ListOfNotesFragment fragment = new ListOfNotesFragment();
         Bundle args = new Bundle();
         args.putParcelableArrayList(ARG_NOTES, notesList);
         fragment.setArguments(args);

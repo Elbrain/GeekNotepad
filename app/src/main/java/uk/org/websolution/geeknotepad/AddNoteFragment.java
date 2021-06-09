@@ -16,7 +16,7 @@ import com.google.android.material.button.MaterialButton;
 
 import java.util.Objects;
 
-public class AddNote extends Fragment {
+public class AddNoteFragment extends Fragment {
 
     private NoteEntity newNote;
     EditText noteTitle, noteText, noteDate;

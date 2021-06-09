@@ -2,7 +2,6 @@ package uk.org.websolution.geeknotepad;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -11,16 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link NoteInfo#newInstance} factory method to
+ * Use the {@link NoteInfoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NoteInfo extends Fragment {
+public class NoteInfoFragment extends Fragment {
 
     private static final String ARG_NOTE = "ARG_NOTE";
 
@@ -29,16 +24,15 @@ public class NoteInfo extends Fragment {
     TextView textViewBody;
     TextView textViewDate;
 
-    public NoteInfo() {
+    public NoteInfoFragment() {
         // Required empty public constructor
     }
 
-    public static NoteInfo newInstance(NoteEntity note) {
-        NoteInfo fragment = new NoteInfo();
+    public static NoteInfoFragment newInstance(NoteEntity note) {
+        NoteInfoFragment fragment = new NoteInfoFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_NOTE, note);
         fragment.setArguments(args);
-        fragment.getArguments();
         return fragment;
     }
 
@@ -57,7 +51,7 @@ public class NoteInfo extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         textViewTitle = view.findViewById(R.id.NoteTitle);
         textViewBody = view.findViewById(R.id.NoteBody);
