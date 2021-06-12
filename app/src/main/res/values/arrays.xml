@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="notes_array">
+        <item>Initial note</item>
+        <item>Second note</item>
+    </string-array>
+
+    <string-array name="notes_body_array">
+        <item>Initial. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Donec tempus a purus quis molestie. Morbi finibus nibh et tellus malesuada,
+            sed bibendum magna interdum. </item>
+        <item>Second. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Donec tempus a purus quis molestie. Morbi finibus nibh et tellus malesuada,
+            sed bibendum magna interdum. </item>
+    </string-array>
+</resources>
