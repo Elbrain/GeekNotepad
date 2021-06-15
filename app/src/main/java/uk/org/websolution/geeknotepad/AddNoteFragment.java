@@ -44,8 +44,10 @@ public class AddNoteFragment extends Fragment {
         saveNote.setOnClickListener(v -> {
             NoteController controller = (NoteController) getActivity();
             newNote = new NoteEntity(noteTitle.getText().toString(), noteText.getText().toString(), noteDate.getText().toString());
+            assert controller != null;
+            getActivity().getSupportFragmentManager().popBackStack();
             controller.addNote(newNote);
-            getActivity().onBackPressed();
+            //getActivity().onBackPressed();
         });
 
     }
