@@ -11,7 +11,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements NoteController, ShowNoteController {
+public class MainActivity extends AppCompatActivity implements AddNoteFragment.NoteController, ListOfNotesFragment.ShowNoteController {
 
     protected ArrayList<NoteEntity> notesList = new ArrayList<>();
     private static final String NOTE_KEY = "noteKey";
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements NoteController, S
             ListOfNotesFragment listOfNotesFragment = ListOfNotesFragment.newInstance(notesList);
             openFragment(listOfNotesFragment);
         }
-        bottomNav = findViewById(R.id.bottomNav);
+        bottomNav = findViewById(R.id.bottom_nav);
 
         init();
     }

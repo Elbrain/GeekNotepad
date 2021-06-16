@@ -2,7 +2,6 @@ package uk.org.websolution.geeknotepad;
 
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -10,23 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link NoteInfoFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class NoteInfoFragment extends Fragment {
 
     private static final String ARG_NOTE = "ARG_NOTE";
-
     private NoteEntity note;
-    TextView textViewTitle;
-    TextView textViewBody;
-    TextView textViewDate;
-
-    public NoteInfoFragment() {
-        // Required empty public constructor
-    }
 
     public static NoteInfoFragment newInstance(NoteEntity note) {
         NoteInfoFragment fragment = new NoteInfoFragment();
@@ -53,9 +39,9 @@ public class NoteInfoFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        textViewTitle = view.findViewById(R.id.NoteTitle);
-        textViewBody = view.findViewById(R.id.NoteBody);
-        textViewDate = view.findViewById(R.id.NoteDate);
+        TextView textViewTitle = view.findViewById(R.id.note_title);
+        TextView textViewBody = view.findViewById(R.id.note_body);
+        TextView textViewDate = view.findViewById(R.id.note_date);
 
         textViewTitle.setText(note.getTitle());
         textViewBody.setText(note.getText());
