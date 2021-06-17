@@ -17,14 +17,14 @@ public class MainActivity extends AppCompatActivity implements AddNoteFragment.N
     private static final String NOTE_KEY = "noteKey";
     private BottomNavigationView bottomNav;
     private boolean isLandscape;
-
-
+    private int navSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-       if (isLandscape) { //в случае поворота экрана гарантируем, что fragment контейнер будет занимать список
+        isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+        if (isLandscape) { //в случае поворота экрана гарантируем, что fragment контейнер будет занимать список
             ListOfNotesFragment listOfNotesFragment = ListOfNotesFragment.newInstance(notesList);
             getSupportFragmentManager()
                     .beginTransaction()
@@ -32,38 +32,38 @@ public class MainActivity extends AppCompatActivity implements AddNoteFragment.N
                     .addToBackStack(null)
                     .commit();
         }
+
         if (savedInstanceState == null) {  //В случае первого запуска отображаем предзаполненый лист
             ListOfNotesFragment listOfNotesFragment = ListOfNotesFragment.newInstance(notesList);
             openFragment(listOfNotesFragment);
         }
-        bottomNav = findViewById(R.id.bottom_nav);
 
+        bottomNav = findViewById(R.id.bottom_nav);
+        navSelected = bottomNav.getSelectedItemId();
         init();
     }
 
-    void openFragment(Fragment fragment){
+    void openFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .addToBackStack(null)
                 .commit();
-
     }
-    void openFragment(Fragment fragment, boolean isLandscape){
+
+    void openFragment(Fragment fragment, boolean isLandscape) {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container_details, fragment)
                 .addToBackStack(null)
                 .commit();
-
     }
 
     private void init() {
         notesList.add(new NoteEntity("Initial note", "Text of initial pre-made note", "2021.05.06"));  //вручную создаём 2 записи.
         notesList.add(new NoteEntity("First note", "Text of first pre-made note", "2021.06.01"));
-        isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
         bottomNav.setOnNavigationItemSelectedListener(item -> {
-            switch (item.getItemId()){
+            switch (item.getItemId()) {
 
                 case R.id.menu_list:
                     ListOfNotesFragment listOfNotesFragment = ListOfNotesFragment.newInstance(notesList);
@@ -71,16 +71,13 @@ public class MainActivity extends AppCompatActivity implements AddNoteFragment.N
                     return true;
 
                 case R.id.menu_add:
-                    if (isLandscape){
+                    if (isLandscape) {
                         openFragment(new AddNoteFragment(), isLandscape);
                     } else {
                         openFragment(new AddNoteFragment());
                     }
-
                     return true;
             }
-
-
             return false;
         });
     }
@@ -105,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteFragment.N
         notesList.add(note);
         ListOfNotesFragment listOfNotesFragment = ListOfNotesFragment.newInstance(notesList);
         openFragment(listOfNotesFragment);
+        bottomNav.setSelectedItemId(navSelected);
     }
 
     @Override
@@ -115,6 +113,5 @@ public class MainActivity extends AppCompatActivity implements AddNoteFragment.N
                 .replace(isLandscape ? R.id.fragment_container_details : R.id.fragment_container, noteInfoFragment)
                 .addToBackStack(null)
                 .commit();
-
     }
 }

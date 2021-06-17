@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_margin="@dimen/half_margin"
     android:orientation="vertical"
-    app:cardCornerRadius="20dp"
-    app:contentPadding="10dp">
+    app:cardCornerRadius="@dimen/corner_radius"
+    app:contentPadding="@dimen/half_padding">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,14 +17,14 @@
             android:id="@+id/title_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="@dimen/body_text_size"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/date_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:textSize="@dimen/small_text_size"
             android:textStyle="italic" />
     </LinearLayout>
 
