@@ -2,14 +2,11 @@ package uk.org.websolution.geeknotepad;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.android.material.button.MaterialButton;
@@ -18,15 +15,7 @@ import java.util.Objects;
 
 public class AddNoteFragment extends Fragment {
 
-    private NoteEntity newNote;
-    EditText noteTitle, noteText, noteDate;
-    MaterialButton saveNote;
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    protected NoteEntity newNote;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,20 +25,21 @@ public class AddNoteFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        noteTitle = view.findViewById(R.id.editTextAddNoteTitle);
-        noteText = view.findViewById(R.id.editTextTextNoteBody);
-        noteDate = view.findViewById(R.id.editTextNoteDate);
-        saveNote = view.findViewById(R.id.buttonSaveNote);
+        EditText  noteTitle = view.findViewById(R.id.edit_text_add_note_title);
+        EditText  noteText = view.findViewById(R.id.edit_text_text_note_body);
+        EditText  noteDate = view.findViewById(R.id.edit_text_note_date);
+        MaterialButton saveNote = view.findViewById(R.id.button_save_note);
 
         saveNote.setOnClickListener(v -> {
             NoteController controller = (NoteController) getActivity();
             newNote = new NoteEntity(noteTitle.getText().toString(), noteText.getText().toString(), noteDate.getText().toString());
             assert controller != null;
-            getActivity().getSupportFragmentManager().popBackStack();
+            Objects.requireNonNull(getActivity()).getSupportFragmentManager().popBackStack();
             controller.addNote(newNote);
-            //getActivity().onBackPressed();
         });
-
     }
 
+    public interface NoteController {
+        void addNote(NoteEntity note);
+    }
 }

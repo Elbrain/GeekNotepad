@@ -1,44 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:paddingStart="@dimen/padding"
+    android:paddingEnd="@dimen/padding"
+    android:paddingBottom="@dimen/padding"
+    android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".AddNoteFragment">
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/edit_text_add_note_title"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:hint="@string/note_title"
+        android:inputType="textPersonName" />
 
-        <EditText
-            android:id="@+id/editTextAddNoteTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:hint="@string/note_title" />
+    <EditText
+        android:id="@+id/edit_text_text_note_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:hint="@string/note_text"
+        android:inputType="textMultiLine"
+        android:minLines="3" />
 
-        <EditText
-            android:id="@+id/editTextTextNoteBody"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:gravity="start"
-            android:minLines="3"
-            android:hint="@string/note_text"/>
+    <EditText
+        android:id="@+id/edit_text_note_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/date"
+        android:inputType="date" />
 
-        <EditText
-            android:id="@+id/editTextNoteDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/date"
-            android:inputType="date" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonSaveNote"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/save_note" />
-    </LinearLayout>
-</FrameLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_save_note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/save_note" />
+</LinearLayout>

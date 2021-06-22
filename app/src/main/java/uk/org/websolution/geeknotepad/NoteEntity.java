@@ -3,10 +3,13 @@ package uk.org.websolution.geeknotepad;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Random;
+
 public class NoteEntity implements Parcelable {
-    String title;
-    String text;
-    String date;
+    private final String title;
+    private final String text;
+    private final String date;
+    private int colour;
 
     public String getTitle() {
         return title;
@@ -20,10 +23,15 @@ public class NoteEntity implements Parcelable {
         return date;
     }
 
+    public int getColour() {
+        return colour;
+    }
+
     public NoteEntity(String title, String text, String date) {
         this.title = title;
         this.text = text;
         this.date = date;
+        colour = new Random().nextInt();
     }
 
     protected NoteEntity(Parcel in) {
