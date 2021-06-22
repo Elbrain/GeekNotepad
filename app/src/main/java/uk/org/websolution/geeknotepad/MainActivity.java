@@ -11,12 +11,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements AddNoteFragment.NoteController, ListOfNotesFragment.ShowNoteController {
+public class MainActivity extends AppCompatActivity implements AddNoteFragment.NoteController, ListOfNotesFragment.ShowNoteController, ListOfNotesFragment.DeleteNoteController, ListOfNotesFragment.EditNoteController, EditNoteFragment.NoteController {
 
     protected ArrayList<NoteEntity> notesList = new ArrayList<>();
     private static final String NOTE_KEY = "noteKey";
     private BottomNavigationView bottomNav;
-    private boolean isLandscape;
+    private int currentId = 0;
+    private boolean isLandscape = false;
     private int navSelected;
 
     @Override
@@ -113,5 +114,35 @@ public class MainActivity extends AppCompatActivity implements AddNoteFragment.N
                 .replace(isLandscape ? R.id.fragment_container_details : R.id.fragment_container, noteInfoFragment)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    @Override
+    public void deleteNote(NoteEntity note) {
+        for (NoteEntity thisNote: notesList) {
+            if (note.equals(thisNote)){
+                notesList.remove(thisNote);
+                break;
+            }
+        }
+    }
+
+    @Override
+    public void editNote(NoteEntity note) {
+        for (int i = 0; i < notesList.size(); i++) {
+            if (notesList.get(i).equals(note)){
+                currentId = i;
+            }
+        }
+        EditNoteFragment editNoteFragment = EditNoteFragment.newInstance(note);
+        if (isLandscape){
+            openFragment(editNoteFragment, isLandscape);
+        } else openFragment(editNoteFragment);
+    }
+
+    @Override
+    public void edit(NoteEntity note) {
+        notesList.set(currentId, note);
+        ListOfNotesFragment listOfNotesFragment = ListOfNotesFragment.newInstance(notesList);
+        openFragment(listOfNotesFragment);
     }
 }

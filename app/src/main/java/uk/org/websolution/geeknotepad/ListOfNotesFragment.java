@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -54,10 +55,31 @@ public class ListOfNotesFragment extends Fragment {
             adapter.setData(allNotes);
         }
 
-        adapter.setOnItemClickListener(item -> {
-            ShowNoteController controller = (ShowNoteController) getActivity();
-            if (controller != null) {
-                controller.showNote(item);
+        adapter.setOnItemClickListener(new NotesAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(NoteEntity note) {
+                ShowNoteController controller = (ShowNoteController) getActivity();
+                if (controller != null) {
+                    controller.showNote(note);
+                }
+            }
+
+            @Override
+            public void onEditClicked(NoteEntity note) {
+                EditNoteController controller = (EditNoteController) getActivity();
+                if (controller != null) {
+                    controller.editNote(note);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onDeleteClicked(NoteEntity note) {
+                DeleteNoteController controller = (DeleteNoteController) getActivity();
+                if (controller != null) {
+                    controller.deleteNote(note);
+                    adapter.notifyDataSetChanged();
+                }
             }
         });
 
@@ -67,6 +89,14 @@ public class ListOfNotesFragment extends Fragment {
 
     public interface ShowNoteController {
         void showNote(NoteEntity note);
+    }
+
+    public interface DeleteNoteController {
+        void deleteNote(NoteEntity note);
+    }
+
+    public interface EditNoteController {
+        void editNote(NoteEntity note);
     }
 
 }
