@@ -14,6 +14,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NoteViewHolder> {
 
     interface OnItemClickListener {
         void onItemClick(NoteEntity note);
+        void onEditClicked(NoteEntity note);
+        void onDeleteClicked(NoteEntity note);
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {

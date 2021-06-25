@@ -6,10 +6,14 @@ import android.os.Parcelable;
 import java.util.Random;
 
 public class NoteEntity implements Parcelable {
-    private final String title;
-    private final String text;
-    private final String date;
+    private String title;
+    private String text;
+    private String date;
     private int colour;
+
+    public NoteEntity() {
+
+    }
 
     public String getTitle() {
         return title;
@@ -27,12 +31,14 @@ public class NoteEntity implements Parcelable {
         return colour;
     }
 
+
     public NoteEntity(String title, String text, String date) {
         this.title = title;
         this.text = text;
         this.date = date;
         colour = new Random().nextInt();
     }
+
 
     protected NoteEntity(Parcel in) {
         title = in.readString();

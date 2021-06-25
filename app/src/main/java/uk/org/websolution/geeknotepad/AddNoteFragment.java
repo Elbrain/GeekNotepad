@@ -11,8 +11,6 @@ import android.widget.EditText;
 
 import com.google.android.material.button.MaterialButton;
 
-import java.util.Objects;
-
 public class AddNoteFragment extends Fragment {
 
     protected NoteEntity newNote;
@@ -34,8 +32,9 @@ public class AddNoteFragment extends Fragment {
             NoteController controller = (NoteController) getActivity();
             newNote = new NoteEntity(noteTitle.getText().toString(), noteText.getText().toString(), noteDate.getText().toString());
             assert controller != null;
-            Objects.requireNonNull(getActivity()).getSupportFragmentManager().popBackStack();
+            requireActivity().getSupportFragmentManager().popBackStack();
             controller.addNote(newNote);
+
         });
     }
 
