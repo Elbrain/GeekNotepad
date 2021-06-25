@@ -1,13 +1,21 @@
 package uk.org.websolution.geeknotepad;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -19,6 +27,8 @@ public class MainActivity extends AppCompatActivity implements AddNoteFragment.N
     private int currentId = 0;
     private boolean isLandscape = false;
     private int navSelected;
+    private final String NOTE_TABLE_NAME = "Notes table";
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +46,17 @@ public class MainActivity extends AppCompatActivity implements AddNoteFragment.N
 
         if (savedInstanceState == null) {  //В случае первого запуска отображаем предзаполненый лист
             ListOfNotesFragment listOfNotesFragment = ListOfNotesFragment.newInstance(notesList);
-            openFragment(listOfNotesFragment);
+            db.collection(NOTE_TABLE_NAME).get().addOnSuccessListener(queryDocumentSnapshots -> {
+                for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()){
+                    notesList.add(documentSnapshot.toObject(NoteEntity.class));
+                    openFragment(listOfNotesFragment);
+                }
+            });
         }
 
         bottomNav = findViewById(R.id.bottom_nav);
         navSelected = bottomNav.getSelectedItemId();
+
         init();
     }
 
@@ -61,8 +77,6 @@ public class MainActivity extends AppCompatActivity implements AddNoteFragment.N
     }
 
     private void init() {
-        notesList.add(new NoteEntity("Initial note", "Text of initial pre-made note", "2021.05.06"));  //вручную создаём 2 записи.
-        notesList.add(new NoteEntity("First note", "Text of first pre-made note", "2021.06.01"));
         bottomNav.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
 
@@ -101,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteFragment.N
     @Override
     public void addNote(NoteEntity note) {
         notesList.add(note);
+        db.collection(NOTE_TABLE_NAME).add(note);
         ListOfNotesFragment listOfNotesFragment = ListOfNotesFragment.newInstance(notesList);
         openFragment(listOfNotesFragment);
         bottomNav.setSelectedItemId(navSelected);
