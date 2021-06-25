@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "932483597061",
+    "project_id": "geek-notepad",
+    "storage_bucket": "geek-notepad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:932483597061:android:5dcace49bec93266736d6c",
+        "android_client_info": {
+          "package_name": "uk.org.websolution.geeknotepad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "932483597061-cccn7qv050hht5ca8cepegangkiv6mo3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMV7CuFJB3Qjkbw03UlpEvPII_IxoC_PY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "932483597061-cccn7qv050hht5ca8cepegangkiv6mo3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
