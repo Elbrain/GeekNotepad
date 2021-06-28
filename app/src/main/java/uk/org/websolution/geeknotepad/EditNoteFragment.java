@@ -56,7 +56,9 @@ public class EditNoteFragment extends Fragment {
         noteDate.setText(note.getDate());
         saveNote.setOnClickListener(v -> {
             NoteController controller = (NoteController) getActivity();
-            newNote = new NoteEntity(noteTitle.getText().toString(), noteText.getText().toString(), noteDate.getText().toString());
+            newNote.setText(noteText.getText().toString());
+            newNote.setTitle(noteTitle.getText().toString());
+            newNote.setDate(noteDate.getText().toString());
             assert controller != null;
             requireActivity().getSupportFragmentManager().popBackStack();
             controller.edit(newNote);
