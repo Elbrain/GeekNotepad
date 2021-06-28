@@ -1,21 +1,14 @@
 package uk.org.websolution.geeknotepad;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -115,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements AddNoteFragment.N
     @Override
     public void addNote(NoteEntity note) {
         notesList.add(note);
-        db.collection(NOTE_TABLE_NAME).add(note);
+        db.collection(NOTE_TABLE_NAME).document(note.getId()).set(note);
         ListOfNotesFragment listOfNotesFragment = ListOfNotesFragment.newInstance(notesList);
         openFragment(listOfNotesFragment);
         bottomNav.setSelectedItemId(navSelected);
@@ -133,12 +126,8 @@ public class MainActivity extends AppCompatActivity implements AddNoteFragment.N
 
     @Override
     public void deleteNote(NoteEntity note) {
-        for (NoteEntity thisNote: notesList) {
-            if (note.equals(thisNote)){
-                notesList.remove(thisNote);
-                break;
-            }
-        }
+        notesList.remove(note);
+        db.collection(NOTE_TABLE_NAME).document(note.getId()).delete();
     }
 
     @Override
@@ -157,6 +146,8 @@ public class MainActivity extends AppCompatActivity implements AddNoteFragment.N
     @Override
     public void edit(NoteEntity note) {
         notesList.set(currentId, note);
+        db.collection(NOTE_TABLE_NAME).document(note.getId()).delete();
+        db.collection(NOTE_TABLE_NAME).document(note.getId()).set(note);
         ListOfNotesFragment listOfNotesFragment = ListOfNotesFragment.newInstance(notesList);
         openFragment(listOfNotesFragment);
     }

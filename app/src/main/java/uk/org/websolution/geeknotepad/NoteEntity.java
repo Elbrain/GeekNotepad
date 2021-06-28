@@ -4,12 +4,14 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.Random;
+import java.util.UUID;
 
 public class NoteEntity implements Parcelable {
     private String title;
     private String text;
     private String date;
     private int colour;
+    private String id;
 
     public NoteEntity() {
 
@@ -31,12 +33,30 @@ public class NoteEntity implements Parcelable {
         return colour;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getId() {
+        return String.valueOf(id);
+    }
+
+
 
     public NoteEntity(String title, String text, String date) {
         this.title = title;
         this.text = text;
         this.date = date;
         colour = new Random().nextInt();
+        id = UUID.randomUUID().toString();
     }
 
 
