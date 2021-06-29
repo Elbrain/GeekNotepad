@@ -1,5 +1,6 @@
 package uk.org.websolution.geeknotepad;
 
+import android.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.ViewGroup;
@@ -50,7 +51,17 @@ public class NoteViewHolder extends RecyclerView.ViewHolder implements MenuItem.
         if (item.getItemId() == R.id.edit_note) {
             clickListener.onEditClicked(noteEntity);
         } else if (item.getItemId() == R.id.delete_note) {
-            clickListener.onDeleteClicked(noteEntity);
+            new AlertDialog.Builder(cardView.getContext())
+                    .setTitle(R.string.warning)
+                    .setMessage(R.string.warning_message)
+                    .setCancelable(true)
+                    .setPositiveButton(R.string.yes, (d,i) ->{
+                        clickListener.onDeleteClicked(noteEntity);
+                    })
+                    .setNegativeButton(R.string.no, (d,i) ->{
+                        return;
+                    })
+                    .show();
         }
         return false;
     }
