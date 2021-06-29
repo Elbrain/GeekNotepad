@@ -17,6 +17,10 @@ public class NoteEntity implements Parcelable {
 
     }
 
+    public NoteEntity() {
+
+    }
+
     public String getTitle() {
         return title;
     }
@@ -48,8 +52,6 @@ public class NoteEntity implements Parcelable {
     public String getId() {
         return String.valueOf(id);
     }
-
-
 
     public NoteEntity(String title, String text, String date) {
         this.title = title;
