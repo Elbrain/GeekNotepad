@@ -1,0 +1,2 @@
+rootProject.name = "Trader tool"
+include ':app'

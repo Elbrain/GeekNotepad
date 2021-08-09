@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="half_padding">10dp</dimen>
+<!--    <dimen name="padding">20dp</dimen>-->
+    <dimen name="avoid_menu_margin">60dp</dimen>
+    <dimen name="full_margin">8dp</dimen>
+<!--    <dimen name="half_margin">10dp</dimen>-->
+    <dimen name="title_text_size">40sp</dimen>
+    <dimen name="body_text_size">18sp</dimen>
+    <dimen name="small_text_size">12sp</dimen>
+    <dimen name="corner_radius">20dp</dimen>
+    <dimen name="calc_text_view_height">100dp</dimen>
+    <dimen name="calc_text_view_margin_top">20dp</dimen>
+    <dimen name="calc_text_view_edge_radius">20dp</dimen>
+    <dimen name="margin">8dp</dimen>
+    <dimen name="half_margin">4dp</dimen>
+    <dimen name="padding">5dp</dimen>
+    <dimen name="text_size">30sp</dimen>
+    <dimen name="zero_dp">0dp</dimen>
+    <dimen name="btn_radius">100dp</dimen>
+    <dimen name="btn_heigh">0dp</dimen>
+    <dimen name="small_text">12sp</dimen>
+    <dimen name="margin_top">20dp</dimen>
+</resources>

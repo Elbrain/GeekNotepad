@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/full_margin"
+    android:layout_marginBottom="@dimen/avoid_menu_margin"
+    android:orientation="vertical"
+    android:padding="@dimen/padding"
+    tools:context=".notes.ListOfNotesFragment">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="@dimen/full_margin"
+        android:layout_marginRight="@dimen/full_margin"
+
+        android:src="@drawable/ic_plus"
+        app:rippleColor="@color/white"
+        app:fabSize="normal"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recycler_list_of_notes"
+        tools:context=".notes.ListOfNotesFragment"
+        >
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+</FrameLayout>

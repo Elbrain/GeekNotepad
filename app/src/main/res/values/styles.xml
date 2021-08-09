@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="operation_button" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+        <item name="android:layout_width">@dimen/zero_dp</item>
+        <item name="android:layout_height">@dimen/zero_dp</item>
+        <item name="android:layout_marginTop">@dimen/margin</item>
+        <item name="android:layout_marginEnd">@dimen/margin</item>
+        <item name="android:backgroundTint">@color/operand_buttons_bg</item>
+        <item name="android:textColor">@color/text_light_blue</item>
+        <item name="android:textSize">@dimen/text_size</item>
+        <item name="cornerRadius">@dimen/btn_radius</item>
+    </style>
+
+    <style name="number_button" parent="operation_button">
+        <item name="android:textColor">@color/text_yellow</item>
+        <item name="android:backgroundTint">@color/number_buttons_bg</item>
+    </style>
+</resources>

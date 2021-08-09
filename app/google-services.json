@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "54535726034",
+    "project_id": "trader-tool-edbbd",
+    "storage_bucket": "trader-tool-edbbd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:54535726034:android:fa41cd338b218420b41e0b",
+        "android_client_info": {
+          "package_name": "uk.org.websolution.trader_org_tool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "54535726034-ha0qpetqp68hvpj1diercakfknqu0he6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZvhRf3PnQkcb5exg8ErGetV_igCV7OsY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "54535726034-ha0qpetqp68hvpj1diercakfknqu0he6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
