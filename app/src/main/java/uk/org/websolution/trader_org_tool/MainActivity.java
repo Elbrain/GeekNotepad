@@ -1,22 +1,31 @@
-package uk.org.websolution.geeknotepad;
+package uk.org.websolution.trader_org_tool;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
+import uk.org.websolution.trader_org_tool.calculator.CalculatorFragment;
+import uk.org.websolution.trader_org_tool.invoices.InvoiceFragment;
+import uk.org.websolution.trader_org_tool.notes.AddNoteFragment;
+import uk.org.websolution.trader_org_tool.notes.EditNoteFragment;
+import uk.org.websolution.trader_org_tool.notes.ListOfNotesFragment;
+import uk.org.websolution.trader_org_tool.notes.NoteEntity;
+import uk.org.websolution.trader_org_tool.notes.NoteInfoFragment;
+
 public class MainActivity extends AppCompatActivity implements AddNoteFragment.NoteController, ListOfNotesFragment.ShowNoteController, ListOfNotesFragment.DeleteNoteController, ListOfNotesFragment.EditNoteController, EditNoteFragment.NoteController {
 
     protected ArrayList<NoteEntity> notesList = new ArrayList<>();
     private static final String NOTE_KEY = "noteKey";
-    private BottomNavigationView bottomNav;
+    public static BottomNavigationView bottomNav;
     private int currentId = 0;
     private boolean isLandscape = false;
     private int navSelected;
@@ -27,44 +36,38 @@ public class MainActivity extends AppCompatActivity implements AddNoteFragment.N
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
-        if (isLandscape) { //в случае поворота экрана гарантируем, что fragment контейнер будет занимать список
-            ListOfNotesFragment listOfNotesFragment = ListOfNotesFragment.newInstance(notesList);
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.fragment_container, listOfNotesFragment)
-                    .addToBackStack(null)
-                    .commit();
-        }
+        FirebaseApp.initializeApp(getApplicationContext());
 
-        if (savedInstanceState == null) {  //В случае первого запуска отображаем предзаполненый лист
-            ListOfNotesFragment listOfNotesFragment = ListOfNotesFragment.newInstance(notesList);
-            db.collection(NOTE_TABLE_NAME).get().addOnSuccessListener(queryDocumentSnapshots -> {
-                for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()){
-                    notesList.add(documentSnapshot.toObject(NoteEntity.class));
-                    openFragment(listOfNotesFragment);
-                }
-            });
-        }
-
+        authMethod(savedInstanceState);
         bottomNav = findViewById(R.id.bottom_nav);
         navSelected = bottomNav.getSelectedItemId();
-
         init();
+    }
+
+    private void authMethod(Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
+            initialLaunch();
+            AuthFragment authFragment = AuthFragment.newInstance();
+            openFragment(authFragment);
+
+        }
+
+    }
+
+    public void initialLaunch() {
+        db.collection(NOTE_TABLE_NAME).get().addOnSuccessListener(queryDocumentSnapshots -> {
+            for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
+                notesList.add(documentSnapshot.toObject(NoteEntity.class));
+            }
+        });
+        ListOfNotesFragment listOfNotesFragment = ListOfNotesFragment.newInstance(notesList);
+        openFragment(listOfNotesFragment);
     }
 
     void openFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, fragment)
-                .addToBackStack(null)
-                .commit();
-    }
-
-    void openFragment(Fragment fragment, boolean isLandscape) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container_details, fragment)
                 .addToBackStack(null)
                 .commit();
     }
@@ -78,12 +81,12 @@ public class MainActivity extends AppCompatActivity implements AddNoteFragment.N
                     openFragment(listOfNotesFragment);
                     return true;
 
-                case R.id.menu_add:
-                    if (isLandscape) {
-                        openFragment(new AddNoteFragment(), isLandscape);
-                    } else {
-                        openFragment(new AddNoteFragment());
-                    }
+                case R.id.menu_calc:
+                    openFragment(new CalculatorFragment());
+                    return true;
+
+                case R.id.menu_invoices:
+                    openFragment(new InvoiceFragment());
                     return true;
             }
             return false;
@@ -133,14 +136,12 @@ public class MainActivity extends AppCompatActivity implements AddNoteFragment.N
     @Override
     public void editNote(NoteEntity note) {
         for (int i = 0; i < notesList.size(); i++) {
-            if (notesList.get(i).equals(note)){
+            if (notesList.get(i).equals(note)) {
                 currentId = i;
             }
         }
         EditNoteFragment editNoteFragment = EditNoteFragment.newInstance(note);
-        if (isLandscape){
-            openFragment(editNoteFragment, isLandscape);
-        } else openFragment(editNoteFragment);
+        openFragment(editNoteFragment);
     }
 
     @Override

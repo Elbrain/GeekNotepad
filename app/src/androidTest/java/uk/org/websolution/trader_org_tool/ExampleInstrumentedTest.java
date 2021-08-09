@@ -1,4 +1,4 @@
-package uk.org.websolution.geeknotepad;
+package uk.org.websolution.trader_org_tool;
 
 import android.content.Context;
 

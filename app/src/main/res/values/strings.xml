@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Geek Notepad</string>
+    <string name="app_name">Trader tool</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="note_title">Note title</string>
@@ -12,4 +12,51 @@
     <string name="add">Add</string>
     <string name="edit_note">Edit note</string>
     <string name="delete_note">Delete note</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="warning">Warning</string>
+    <string name="warning_message">Are you sure, that you would like to delete the note?</string>
+    <string name="ac">AC</string>
+    <string name="c">C</string>
+    <string name="mult">*</string>
+    <string name="div">/</string>
+    <string name="_7">7</string>
+    <string name="_8">8</string>
+    <string name="_9">9</string>
+    <string name="min">-</string>
+    <string name="_4">4</string>
+    <string name="_5">5</string>
+    <string name="_6">6</string>
+    <string name="plus">+</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="equally">=</string>
+    <string name="_0">0</string>
+    <string name="dot">.</string>
+    <string name="switch_theme">Switch theme</string>
+    <string name="back_to_calculator">Back to Calculator</string>
+    <string name="to_settings">To settings</string>
+    <string name="calculator">Calculator</string>
+    <string name="invoices">Invoices</string>
+    <string name="notes">Notes</string>
+    <string name="upload">Upload</string>
+    <string name="search">Search</string>
+    <string name="choose_image">Choose image</string>
+    <string name="change_image">Change image</string>
+    <string name="bill_from">Bill from</string>
+    <string name="who_is_this_invoice_from">Who is this invoice from?</string>
+    <string name="bill_to">Bill to</string>
+    <string name="who_is_this_invoice_to">Who is this invoice to?</string>
+    <string name="terms">Terms</string>
+    <string name="today_s_date">Today`s date</string>
+    <string name="due_date">Due Date</string>
+    <string name="enter_the_date">Enter the date</string>
+    <string name="rate">Rate £</string>
+    <string name="job_description">Job description</string>
+    <string name="enter_the_rate">Enter the rate</string>
+    <string name="send_invoice">Send invoice</string>
+    <string name="continue_to_app">Continue to app</string>
+    <string name="sign_out">Sign out</string>
+    <string name="number">No.</string>
 </resources>

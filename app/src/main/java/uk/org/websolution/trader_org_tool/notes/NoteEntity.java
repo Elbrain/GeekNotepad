@@ -1,16 +1,17 @@
-package uk.org.websolution.geeknotepad;
+package uk.org.websolution.trader_org_tool.notes;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.Random;
+import java.util.Calendar;
 import java.util.UUID;
+
+import uk.org.websolution.trader_org_tool.R;
 
 public class NoteEntity implements Parcelable {
     private String title;
     private String text;
     private String date;
-    private int colour;
     private String id;
 
     public NoteEntity() {
@@ -29,10 +30,6 @@ public class NoteEntity implements Parcelable {
         return date;
     }
 
-    public int getColour() {
-        return colour;
-    }
-
     public void setTitle(String title) {
         this.title = title;
     }
@@ -41,21 +38,16 @@ public class NoteEntity implements Parcelable {
         this.text = text;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
 
     public String getId() {
         return String.valueOf(id);
     }
 
 
-
-    public NoteEntity(String title, String text, String date) {
+    public NoteEntity(String title, String text) {
         this.title = title;
         this.text = text;
-        this.date = date;
-        colour = new Random().nextInt();
+        this.date = Calendar.getInstance().getTime().toString();
         id = UUID.randomUUID().toString();
     }
 

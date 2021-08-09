@@ -1,4 +1,4 @@
-package uk.org.websolution.geeknotepad;
+package uk.org.websolution.trader_org_tool.notes;
 
 import android.os.Bundle;
 
@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import uk.org.websolution.trader_org_tool.R;
 
 public class NoteInfoFragment extends Fragment {
 

@@ -1,8 +1,10 @@
-package uk.org.websolution.geeknotepad;
+package uk.org.websolution.trader_org_tool.notes;
 
+import android.os.Build;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -33,6 +35,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NoteViewHolder> {
         return new NoteViewHolder(parent, onItemClickListener);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
         holder.bind(data.get(position));

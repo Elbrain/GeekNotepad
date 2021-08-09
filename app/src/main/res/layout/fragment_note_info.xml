@@ -3,9 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="18dp"
+    android:layout_marginTop="@dimen/full_margin"
+    android:layout_marginBottom="@dimen/avoid_menu_margin"
     android:orientation="vertical"
-    tools:context=".NoteInfoFragment">
+    android:padding="@dimen/padding"
+    tools:context=".notes.NoteInfoFragment">
 
 
     <TextView

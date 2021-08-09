@@ -1,4 +1,4 @@
-package uk.org.websolution.geeknotepad;
+package uk.org.websolution.trader_org_tool.notes;
 
 import android.os.Bundle;
 
@@ -11,8 +11,7 @@ import android.widget.EditText;
 
 import com.google.android.material.button.MaterialButton;
 
-import java.util.ArrayList;
-import java.util.Objects;
+import uk.org.websolution.trader_org_tool.R;
 
 public class EditNoteFragment extends Fragment {
 
@@ -20,7 +19,6 @@ public class EditNoteFragment extends Fragment {
     private static final String ARG_NOTES = "ARG_NOTES";
     private EditText noteTitle;
     private EditText noteText;
-    private EditText noteDate;
     private MaterialButton saveNote;
 
 
@@ -42,7 +40,6 @@ public class EditNoteFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         noteTitle = view.findViewById(R.id.edit_text_add_note_title);
         noteText = view.findViewById(R.id.edit_text_text_note_body);
-        noteDate = view.findViewById(R.id.edit_text_note_date);
         saveNote = view.findViewById(R.id.button_save_note);
         if (getArguments() != null) {
             newNote = getArguments().getParcelable(ARG_NOTES);
@@ -53,12 +50,10 @@ public class EditNoteFragment extends Fragment {
     public void editNote(NoteEntity note) {
         noteTitle.setText(note.getTitle());
         noteText.setText(note.getText());
-        noteDate.setText(note.getDate());
         saveNote.setOnClickListener(v -> {
             NoteController controller = (NoteController) getActivity();
             newNote.setText(noteText.getText().toString());
             newNote.setTitle(noteTitle.getText().toString());
-            newNote.setDate(noteDate.getText().toString());
             assert controller != null;
             requireActivity().getSupportFragmentManager().popBackStack();
             controller.edit(newNote);

@@ -1,29 +1,28 @@
-package uk.org.websolution.geeknotepad;
+package uk.org.websolution.trader_org_tool.notes;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+
+import uk.org.websolution.trader_org_tool.R;
 
 public class ListOfNotesFragment extends Fragment {
 
     private static final String ARG_NOTES = "ARG_NOTES";
     private RecyclerView recyclerView;
+    private FloatingActionButton addNoteFab;
 
     public static ListOfNotesFragment newInstance(ArrayList<NoteEntity> notesList) {
         ListOfNotesFragment fragment = new ListOfNotesFragment();
@@ -37,6 +36,7 @@ public class ListOfNotesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_of_notes, container, false);
         recyclerView = view.findViewById(R.id.recycler_list_of_notes);
+        addNoteFab = view.findViewById(R.id.fab_add_note);
         return view;
     }
 
@@ -44,7 +44,7 @@ public class ListOfNotesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         generateList();
-
+        initFab();
     }
 
     private void generateList() {
@@ -83,8 +83,19 @@ public class ListOfNotesFragment extends Fragment {
             }
         });
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setAdapter(adapter);
+    }
+
+    private void initFab(){
+        addNoteFab.setOnClickListener(v -> {
+            AddNoteFragment addNoteFragment = new AddNoteFragment();
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, addNoteFragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
     }
 
     public interface ShowNoteController {
@@ -98,5 +109,4 @@ public class ListOfNotesFragment extends Fragment {
     public interface EditNoteController {
         void editNote(NoteEntity note);
     }
-
 }
