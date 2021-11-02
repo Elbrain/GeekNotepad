@@ -1,112 +1,101 @@
-package uk.org.websolution.trader_org_tool.notes;
+package uk.org.websolution.trader_org_tool.notes
 
-import android.os.Bundle;
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import uk.org.websolution.trader_org_tool.R
+import java.util.*
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.ArrayList;
-
-import uk.org.websolution.trader_org_tool.R;
-
-public class ListOfNotesFragment extends Fragment {
-
-    private static final String ARG_NOTES = "ARG_NOTES";
-    private RecyclerView recyclerView;
-    private FloatingActionButton addNoteFab;
-
-    public static ListOfNotesFragment newInstance(ArrayList<NoteEntity> notesList) {
-        ListOfNotesFragment fragment = new ListOfNotesFragment();
-        Bundle args = new Bundle();
-        args.putParcelableArrayList(ARG_NOTES, notesList);
-        fragment.setArguments(args);
-        return fragment;
+class ListOfNotesFragment : Fragment() {
+    private var recyclerView: RecyclerView? = null
+    private var addNoteFab: FloatingActionButton? = null
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.fragment_list_of_notes, container, false)
+        recyclerView = view.findViewById(R.id.recycler_list_of_notes)
+        addNoteFab = view.findViewById(R.id.fab_add_note)
+        return view
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_list_of_notes, container, false);
-        recyclerView = view.findViewById(R.id.recycler_list_of_notes);
-        addNoteFab = view.findViewById(R.id.fab_add_note);
-        return view;
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        generateList()
+        initFab()
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        generateList();
-        initFab();
-    }
-
-    private void generateList() {
-        NotesAdapter adapter = new NotesAdapter();
-
-        if (getArguments() != null) {
-            ArrayList<NoteEntity> allNotes = getArguments().getParcelableArrayList(ARG_NOTES);
-            adapter.setData(allNotes);
+    private fun generateList() {
+        val adapter = NotesAdapter()
+        if (arguments != null) {
+            val allNotes: ArrayList<NoteEntity> = requireArguments().getParcelableArrayList(ARG_NOTES)!!
+            adapter.setData(allNotes)
         }
+        adapter.setOnItemClickListener(object : NotesAdapter.OnItemClickListener {
+            override fun onItemClick(note: NoteEntity) {
+                val controller = activity as ShowNoteController?
+                controller?.showNote(note)
+            }
 
-        adapter.setOnItemClickListener(new NotesAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(NoteEntity note) {
-                ShowNoteController controller = (ShowNoteController) getActivity();
+            override fun onEditClicked(note: NoteEntity) {
+                val controller = activity as EditNoteController?
                 if (controller != null) {
-                    controller.showNote(note);
+                    controller.editNote(note)
+                    adapter.notifyDataSetChanged()
                 }
             }
 
-            @Override
-            public void onEditClicked(NoteEntity note) {
-                EditNoteController controller = (EditNoteController) getActivity();
+            override fun onDeleteClicked(note: NoteEntity) {
+                val controller = activity as DeleteNoteController?
                 if (controller != null) {
-                    controller.editNote(note);
-                    adapter.notifyDataSetChanged();
+                    controller.deleteNote(note)
+                    adapter.notifyDataSetChanged()
                 }
             }
-
-            @Override
-            public void onDeleteClicked(NoteEntity note) {
-                DeleteNoteController controller = (DeleteNoteController) getActivity();
-                if (controller != null) {
-                    controller.deleteNote(note);
-                    adapter.notifyDataSetChanged();
-                }
-            }
-        });
-
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        recyclerView.setAdapter(adapter);
+        })
+        recyclerView!!.layoutManager =
+            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        recyclerView!!.adapter = adapter
     }
 
-    private void initFab(){
-        addNoteFab.setOnClickListener(v -> {
-            AddNoteFragment addNoteFragment = new AddNoteFragment();
-            getActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, addNoteFragment)
-                    .addToBackStack(null)
-                    .commit();
-        });
+    private fun initFab() {
+        addNoteFab!!.setOnClickListener { v: View? ->
+            val addNoteFragment = AddNoteFragment()
+            requireActivity().supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragment_container, addNoteFragment)
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
-    public interface ShowNoteController {
-        void showNote(NoteEntity note);
+    interface ShowNoteController {
+        fun showNote(note: NoteEntity?)
     }
 
-    public interface DeleteNoteController {
-        void deleteNote(NoteEntity note);
+    interface DeleteNoteController {
+        fun deleteNote(note: NoteEntity?)
     }
 
-    public interface EditNoteController {
-        void editNote(NoteEntity note);
+    interface EditNoteController {
+        fun editNote(note: NoteEntity?)
+    }
+
+    companion object {
+        private const val ARG_NOTES = "ARG_NOTES"
+        @JvmStatic
+        fun newInstance(notesList: ArrayList<NoteEntity?>?): ListOfNotesFragment {
+            val fragment = ListOfNotesFragment()
+            val args = Bundle()
+            args.putParcelableArrayList(ARG_NOTES, notesList)
+            fragment.arguments = args
+            return fragment
+        }
     }
 }

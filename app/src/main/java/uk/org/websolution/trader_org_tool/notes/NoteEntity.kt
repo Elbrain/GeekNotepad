@@ -1,84 +1,55 @@
-package uk.org.websolution.trader_org_tool.notes;
+package uk.org.websolution.trader_org_tool.notes
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import android.os.Parcel
+import android.os.Parcelable
+import android.os.Parcelable.Creator
+import java.util.*
 
-import java.util.Calendar;
-import java.util.UUID;
+class NoteEntity : Parcelable {
+    var title: String? = null
+    var text: String? = null
+    var date: String? = null
+        private set
+    private var id: String? = null
 
-import uk.org.websolution.trader_org_tool.R;
+    constructor() {}
 
-public class NoteEntity implements Parcelable {
-    private String title;
-    private String text;
-    private String date;
-    private String id;
-
-    public NoteEntity() {
-
+    fun getId(): String {
+        return id.toString()
     }
 
-    public String getTitle() {
-        return title;
+    constructor(title: String?, text: String?) {
+        this.title = title
+        this.text = text
+        date = Calendar.getInstance().time.toString()
+        id = UUID.randomUUID().toString()
     }
 
-    public String getText() {
-        return text;
+    protected constructor(`in`: Parcel) {
+        title = `in`.readString()
+        text = `in`.readString()
+        date = `in`.readString()
     }
 
-    public String getDate() {
-        return date;
+    override fun describeContents(): Int {
+        return 0
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    override fun writeToParcel(dest: Parcel, flags: Int) {
+        dest.writeString(title)
+        dest.writeString(text)
+        dest.writeString(date)
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
+    companion object {
+        @JvmField val CREATOR: Creator<NoteEntity?> = object : Creator<NoteEntity?> {
+            override fun createFromParcel(`in`: Parcel): NoteEntity? {
+                return NoteEntity(`in`)
+            }
 
-
-    public String getId() {
-        return String.valueOf(id);
-    }
-
-
-    public NoteEntity(String title, String text) {
-        this.title = title;
-        this.text = text;
-        this.date = Calendar.getInstance().getTime().toString();
-        id = UUID.randomUUID().toString();
-    }
-
-
-    protected NoteEntity(Parcel in) {
-        title = in.readString();
-        text = in.readString();
-        date = in.readString();
-    }
-
-    public static final Creator<NoteEntity> CREATOR = new Creator<NoteEntity>() {
-        @Override
-        public NoteEntity createFromParcel(Parcel in) {
-            return new NoteEntity(in);
+            override fun newArray(size: Int): Array<NoteEntity?> {
+                return arrayOfNulls(size)
+            }
         }
-
-        @Override
-        public NoteEntity[] newArray(int size) {
-            return new NoteEntity[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(title);
-        dest.writeString(text);
-        dest.writeString(date);
     }
 }
